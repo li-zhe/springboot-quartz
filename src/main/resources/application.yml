@@ -1,0 +1,26 @@
+server:
+    port: 8080
+    servlet:
+        context-path: /
+spring:
+    thymeleaf:
+        prefix: classpath:/view/
+    web:
+        resources:
+            static-locations: classpath:/
+    # 服务模块
+    devtools:
+        restart:
+            # 热部署开关
+            enabled: true
+    datasource:
+        druid:
+            driver-class-name: com.mysql.cj.jdbc.Driver
+            initial-size: 3
+            max-active: 10
+            max-wait: 60000
+            min-idle: 3
+            username: root
+            password: "030721"
+            url: jdbc:mysql://172.16.76.5:3306/quartz?characterEncoding=utf8&useSSL=false&autoReconnect=true&serverTimezone=UTC
+        type: com.alibaba.druid.pool.DruidDataSource
