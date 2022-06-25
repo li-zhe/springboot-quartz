@@ -20,8 +20,6 @@ import Pagination from '@/components/Pagination'
 import RightToolbar from '@/components/RightToolbar'
 // 字典标签组件
 import DictTag from '@/components/DictTag'
-// 头部标签组件
-import VueMeta from 'vue-meta'
 // 字典数据组件
 import DictData from '@/components/DictData'
 
@@ -41,7 +39,6 @@ Vue.component('RightToolbar', RightToolbar)
 
 Vue.use(directive)
 Vue.use(plugins)
-Vue.use(VueMeta)
 DictData.install()
 
 /**
