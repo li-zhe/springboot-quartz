@@ -33,8 +33,6 @@
     "element-ui": "2.15.6",
     "fuse.js": "6.4.3",
     "highlight.js": "^9.18.5",
-    "nprogress": "0.2.0",
-    "sortablejs": "1.10.2",
     "vue": "2.6.12",
     "vue-router": "3.4.9"
   },
