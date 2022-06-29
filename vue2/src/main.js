@@ -7,7 +7,6 @@ import '@/assets/styles/index.scss' // global css
 import '@/assets/styles/ruoyi.scss' // ruoyi css
 import App from './App'
 import router from './router'
-import directive from './directive' // directive
 import plugins from './plugins' // plugins
 
 // import './assets/icons' // icon
@@ -37,7 +36,6 @@ Vue.component('DictTag', DictTag)
 Vue.component('Pagination', Pagination)
 Vue.component('RightToolbar', RightToolbar)
 
-Vue.use(directive)
 Vue.use(plugins)
 DictData.install()
 
