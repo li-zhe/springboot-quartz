@@ -9,8 +9,7 @@ import java.util.List;
  *
  * @author dmp
  */
-public interface QuartzJobLogMapper
-{
+public interface QuartzJobLogMapper {
     /**
      * 获取quartz调度器日志的计划任务
      *

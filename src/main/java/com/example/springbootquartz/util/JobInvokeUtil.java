@@ -1,6 +1,5 @@
 package com.example.springbootquartz.util;
 
-
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.extra.spring.SpringUtil;
@@ -105,23 +104,23 @@ public class JobInvokeUtil {
             String str = StrUtil.trim(methodParams[i]);
             // String字符串类型，包含'
             if (StrUtil.contains(str, "'")) {
-                classs.add(new Object[]{StrUtil.replace(str, "'", ""), String.class});
+                classs.add(new Object[] { StrUtil.replace(str, "'", ""), String.class });
             }
             // boolean布尔类型，等于true或者false
             else if (StrUtil.equals(str, "true") || StrUtil.equalsIgnoreCase(str, "false")) {
-                classs.add(new Object[]{Boolean.valueOf(str), Boolean.class});
+                classs.add(new Object[] { Boolean.valueOf(str), Boolean.class });
             }
             // long长整形，包含L
             else if (StrUtil.containsIgnoreCase(str, "L")) {
-                classs.add(new Object[]{Long.valueOf(StrUtil.replaceIgnoreCase(str, "L", "")), Long.class});
+                classs.add(new Object[] { Long.valueOf(StrUtil.replaceIgnoreCase(str, "L", "")), Long.class });
             }
             // double浮点类型，包含D
             else if (StrUtil.containsIgnoreCase(str, "D")) {
-                classs.add(new Object[]{Double.valueOf(StrUtil.replaceIgnoreCase(str, "D", "")), Double.class});
+                classs.add(new Object[] { Double.valueOf(StrUtil.replaceIgnoreCase(str, "D", "")), Double.class });
             }
             // 其他类型归类为整形
             else {
-                classs.add(new Object[]{Integer.valueOf(str), Integer.class});
+                classs.add(new Object[] { Integer.valueOf(str), Integer.class });
             }
         }
         return classs;

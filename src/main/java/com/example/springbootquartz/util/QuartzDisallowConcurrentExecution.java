@@ -11,11 +11,9 @@ import org.quartz.JobExecutionContext;
  *
  */
 @DisallowConcurrentExecution
-public class QuartzDisallowConcurrentExecution extends AbstractQuartzJob
-{
+public class QuartzDisallowConcurrentExecution extends AbstractQuartzJob {
     @Override
-    protected void doExecute(JobExecutionContext context, QuartzJob sysJob) throws Exception
-    {
+    protected void doExecute(JobExecutionContext context, QuartzJob sysJob) throws Exception {
         JobInvokeUtil.invokeMethod(sysJob);
     }
 }

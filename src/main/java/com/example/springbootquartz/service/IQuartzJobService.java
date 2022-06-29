@@ -11,8 +11,7 @@ import java.util.List;
  *
  * @author dmp
  */
-public interface IQuartzJobService
-{
+public interface IQuartzJobService {
     /**
      * 获取quartz调度器的计划任务
      *

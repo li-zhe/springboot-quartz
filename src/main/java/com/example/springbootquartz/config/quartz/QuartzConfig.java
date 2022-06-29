@@ -20,7 +20,7 @@ import java.util.Properties;
 public class QuartzConfig implements SchedulerFactoryBeanCustomizer {
 
     @Bean
-    public Properties quartzProperties() throws IOException {
+    Properties quartzProperties() throws IOException {
         PropertiesFactoryBean propertiesFactoryBean = new PropertiesFactoryBean();
         // 对quartz.properties文件进行读取
         propertiesFactoryBean.setLocation(new ClassPathResource("/qrtz.properties"));
@@ -30,7 +30,7 @@ public class QuartzConfig implements SchedulerFactoryBeanCustomizer {
     }
 
     @Bean
-    public SchedulerFactoryBean schedulerFactoryBean() throws IOException {
+    SchedulerFactoryBean schedulerFactoryBean() throws IOException {
         SchedulerFactoryBean schedulerFactoryBean = new SchedulerFactoryBean();
         schedulerFactoryBean.setQuartzProperties(quartzProperties());
         return schedulerFactoryBean;
@@ -39,20 +39,23 @@ public class QuartzConfig implements SchedulerFactoryBeanCustomizer {
     /**
      * quartz初始化监听器
      * 这个监听器可以监听到工程的启动，在工程停止再启动时可以让已有的定时任务继续进行。
-     * 有这个会导致报错：Active Scheduler of name 'MyClusterScheduler' already registered in Quartz SchedulerRepository. Cannot create a new Spring-managed Scheduler of the same name!
+     * 有这个会导致报错：Active Scheduler of name 'MyClusterScheduler' already registered in
+     * Quartz SchedulerRepository. Cannot create a new Spring-managed Scheduler of
+     * the same name!
+     * 
      * @return
      */
 
     @Bean
-    public QuartzInitializerListener executorListener() {
+    QuartzInitializerListener executorListener() {
         return new QuartzInitializerListener();
     }
 
-    /*
+    /**
      * 通过SchedulerFactoryBean获取Scheduler的实例
      */
-    @Bean(name="Scheduler")
-    public Scheduler scheduler() throws IOException {
+    @Bean(name = "Scheduler")
+    Scheduler scheduler() throws IOException {
         return schedulerFactoryBean().getScheduler();
     }
 

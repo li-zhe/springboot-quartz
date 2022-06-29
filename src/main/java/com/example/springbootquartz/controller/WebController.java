@@ -16,6 +16,7 @@ public class WebController {
     public String index() throws Exception {
         return "index.html";
     }
+
     @GetMapping("{param1:^(?!static).*?$}/**")
     public String redirect() throws Exception {
         return "index.html";

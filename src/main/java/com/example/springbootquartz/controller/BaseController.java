@@ -59,7 +59,7 @@ public class BaseController {
     /**
      * 响应请求分页数据
      */
-    @SuppressWarnings({"rawtypes", "unchecked"})
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     protected TableDataInfo getDataTable(List<?> list) {
         TableDataInfo rspData = new TableDataInfo();
         rspData.setCode(HttpStatus.OK.value());
@@ -72,8 +72,8 @@ public class BaseController {
     /**
      * 响应请求分页数据
      */
-    @SuppressWarnings({"rawtypes", "unchecked"})
-    protected TableDataInfo getDataTable(List<?> list,int total) {
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+    protected TableDataInfo getDataTable(List<?> list, int total) {
         TableDataInfo rspData = new TableDataInfo();
         rspData.setCode(HttpStatus.OK.value());
         rspData.setRows(list);
@@ -88,7 +88,7 @@ public class BaseController {
         rspData.setMsg("查询成功");
         rspData.setTotal(new PageInfo(list).getTotal());
 
-        List<T> list4Target= BeanUtil.copyToList(list,targetType);
+        List<T> list4Target = BeanUtil.copyToList(list, targetType);
         rspData.setRows(list4Target);
         return rspData;
     }

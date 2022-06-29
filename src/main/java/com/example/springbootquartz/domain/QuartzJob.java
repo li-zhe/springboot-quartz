@@ -13,10 +13,11 @@ import java.util.Date;
 
 /**
  * 定时任务调度表 quartz_job
+ * 
  * @author liyuzhe
  */
 @Data
-public class QuartzJob extends BaseEntity{
+public class QuartzJob extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
     /**

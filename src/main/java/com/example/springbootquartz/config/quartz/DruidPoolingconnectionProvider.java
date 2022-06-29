@@ -1,6 +1,5 @@
 package com.example.springbootquartz.config.quartz;
 
-
 import com.alibaba.druid.pool.DruidDataSource;
 import lombok.Data;
 import org.quartz.SchedulerException;
@@ -12,28 +11,22 @@ import java.sql.SQLException;
 /**
  * 使用阿里的druid作为数据库连接池
  *
- *@Author: CJ
- *@Date: 2021-11-2 15:25
+ * @Author: CJ
+ * @Date: 2021-11-2 15:25
  */
 @Data
 public class DruidPoolingconnectionProvider implements ConnectionProvider {
 
-    // JDBC驱动
     public String driver;
 
-    // JDBC连接串
     public String URL;
 
-    // 数据库用户名
     public String user;
 
-    // 数据库用户密码
     public String password;
 
-    // 数据库最大连接数
     public int maxConnections;
 
-    // 数据库SQL查询每次连接返回执行到连接池，以确保它仍然是有效的。
     public String validationQuery;
 
     private boolean validateOnCheckout;
@@ -48,7 +41,6 @@ public class DruidPoolingconnectionProvider implements ConnectionProvider {
 
     public static final int DEFAULT_DB_MAX_CACHED_STATEMENTS_PER_CONNECTION = 120;
 
-    // Druid连接池
     private DruidDataSource datasource;
 
     @Override
@@ -70,10 +62,11 @@ public class DruidPoolingconnectionProvider implements ConnectionProvider {
             throw new SQLException("DBPool driver could not be created: DB driver class name cannot be null!");
         }
         if (this.maxConnections < 0) {
-            throw new SQLException("DBPool maxConnections could not be created: Max connections must be greater than zero!");
+            throw new SQLException(
+                    "DBPool maxConnections could not be created: Max connections must be greater than zero!");
         }
         datasource = new DruidDataSource();
-        try{
+        try {
             datasource.setDriverClassName(this.driver);
         } catch (Exception e) {
             try {
@@ -90,7 +83,7 @@ public class DruidPoolingconnectionProvider implements ConnectionProvider {
         datasource.setMaxPoolPreparedStatementPerConnectionSize(DEFAULT_DB_MAX_CONNECTIONS);
         if (this.validationQuery != null) {
             datasource.setValidationQuery(this.validationQuery);
-            if(!this.validateOnCheckout) {
+            if (!this.validateOnCheckout) {
                 datasource.setTestOnReturn(true);
             } else {
                 datasource.setTestOnBorrow(true);

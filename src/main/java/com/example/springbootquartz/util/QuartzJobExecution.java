@@ -1,6 +1,5 @@
 package com.example.springbootquartz.util;
 
-
 import com.example.springbootquartz.domain.QuartzJob;
 import org.quartz.JobExecutionContext;
 
@@ -10,11 +9,9 @@ import org.quartz.JobExecutionContext;
  * @author dmp
  *
  */
-public class QuartzJobExecution extends AbstractQuartzJob
-{
+public class QuartzJobExecution extends AbstractQuartzJob {
     @Override
-    protected void doExecute(JobExecutionContext context, QuartzJob sysJob) throws Exception
-    {
+    protected void doExecute(JobExecutionContext context, QuartzJob sysJob) throws Exception {
         JobInvokeUtil.invokeMethod(sysJob);
     }
 }

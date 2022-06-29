@@ -64,12 +64,13 @@ public class QuartzJobController extends BaseController {
 			return error("新增任务'" + job.getJobName() + "'失败，目标字符串不允许'rmi://'调用");
 		} else if (StrUtil.containsIgnoreCase(job.getInvokeTarget(), CommonConstants.LOOKUP_LDAP)) {
 			return error("新增任务'" + job.getJobName() + "'失败，目标字符串不允许'ldap://'调用");
-		} else if (StrUtil.containsAnyIgnoreCase(job.getInvokeTarget(), new String[]{CommonConstants.HTTP, CommonConstants.HTTPS})) {
+		} else if (StrUtil.containsAnyIgnoreCase(job.getInvokeTarget(),
+				new String[] { CommonConstants.HTTP, CommonConstants.HTTPS })) {
 			return error("新增任务'" + job.getJobName() + "'失败，目标字符串不允许'http(s)//'调用");
 		} else if (StrUtil.containsAnyIgnoreCase(job.getInvokeTarget(), CommonConstants.JOB_ERROR_STR)) {
 			return error("新增任务'" + job.getJobName() + "'失败，目标字符串存在违规");
 		}
-//		job.setCreateBy("admin");
+		// job.setCreateBy("admin");
 		return toResult(jobService.insertJob(job));
 	}
 
@@ -84,12 +85,13 @@ public class QuartzJobController extends BaseController {
 			return error("修改任务'" + job.getJobName() + "'失败，目标字符串不允许'rmi://'调用");
 		} else if (StrUtil.containsIgnoreCase(job.getInvokeTarget(), CommonConstants.LOOKUP_LDAP)) {
 			return error("修改任务'" + job.getJobName() + "'失败，目标字符串不允许'ldap://'调用");
-		} else if (StrUtil.containsAnyIgnoreCase(job.getInvokeTarget(), new String[]{CommonConstants.HTTP, CommonConstants.HTTPS})) {
+		} else if (StrUtil.containsAnyIgnoreCase(job.getInvokeTarget(),
+				new String[] { CommonConstants.HTTP, CommonConstants.HTTPS })) {
 			return error("修改任务'" + job.getJobName() + "'失败，目标字符串不允许'http(s)//'调用");
 		} else if (StrUtil.containsAnyIgnoreCase(job.getInvokeTarget(), CommonConstants.JOB_ERROR_STR)) {
 			return error("修改任务'" + job.getJobName() + "'失败，目标字符串存在违规");
 		}
-//		job.setUpdateBy("admin");
+		// job.setUpdateBy("admin");
 		return toResult(jobService.updateJob(job));
 	}
 

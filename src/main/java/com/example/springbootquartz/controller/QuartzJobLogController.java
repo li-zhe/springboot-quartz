@@ -16,8 +16,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/job/log")
-public class QuartzJobLogController extends BaseController
-{
+public class QuartzJobLogController extends BaseController {
     @Autowired
     private IQuartzJobLogService jobLogService;
 
@@ -25,20 +24,17 @@ public class QuartzJobLogController extends BaseController
      * 查询定时任务调度日志列表
      */
     @GetMapping("/list")
-    public TableDataInfo list(QuartzJobLog sysJobLog)
-    {
+    public TableDataInfo list(QuartzJobLog sysJobLog) {
         startPage();
         List<QuartzJobLog> list = jobLogService.selectJobLogList(sysJobLog);
         return getDataTable(list);
     }
 
-
     /**
      * 根据调度编号获取详细信息
      */
     @GetMapping(value = "/{configId}")
-    public Result getInfo(@PathVariable Long jobLogId)
-    {
+    public Result getInfo(@PathVariable Long jobLogId) {
         return Result.success(jobLogService.selectJobLogById(jobLogId));
     }
 
@@ -46,8 +42,7 @@ public class QuartzJobLogController extends BaseController
      * 删除定时任务调度日志
      */
     @DeleteMapping("/{jobLogIds}")
-    public Result remove(@PathVariable Long[] jobLogIds)
-    {
+    public Result remove(@PathVariable Long[] jobLogIds) {
         return toResult(jobLogService.deleteJobLogByIds(jobLogIds));
     }
 
@@ -55,8 +50,7 @@ public class QuartzJobLogController extends BaseController
      * 清空定时任务调度日志
      */
     @DeleteMapping("/clean")
-    public Result clean()
-    {
+    public Result clean() {
         jobLogService.cleanJobLog();
         return Result.success();
     }

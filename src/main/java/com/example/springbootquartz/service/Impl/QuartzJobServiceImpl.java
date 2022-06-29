@@ -25,8 +25,7 @@ import java.util.List;
  * @author dmp
  */
 @Service
-public class QuartzJobServiceImpl implements IQuartzJobService
-{
+public class QuartzJobServiceImpl implements IQuartzJobService {
     @Autowired
     @Qualifier("Scheduler")
     private Scheduler scheduler;
@@ -38,12 +37,10 @@ public class QuartzJobServiceImpl implements IQuartzJobService
      * 项目启动时，初始化定时器 主要是防止手动修改数据库导致未同步到定时任务处理（注：不能手动修改数据库ID和任务组名，否则会导致脏数据）
      */
     @PostConstruct
-    public void init() throws SchedulerException, TaskException
-    {
+    public void init() throws SchedulerException, TaskException {
         scheduler.clear();
         List<QuartzJob> jobList = jobMapper.selectJobAll();
-        for (QuartzJob job : jobList)
-        {
+        for (QuartzJob job : jobList) {
             ScheduleUtils.createScheduleJob(scheduler, job);
         }
     }
@@ -55,8 +52,7 @@ public class QuartzJobServiceImpl implements IQuartzJobService
      * @return List<QuartzJob>
      */
     @Override
-    public List<QuartzJob> selectJobList(QuartzJob job)
-    {
+    public List<QuartzJob> selectJobList(QuartzJob job) {
         return jobMapper.selectJobList(job);
     }
 
@@ -67,8 +63,7 @@ public class QuartzJobServiceImpl implements IQuartzJobService
      * @return 调度任务对象信息
      */
     @Override
-    public QuartzJob selectJobById(Long jobId)
-    {
+    public QuartzJob selectJobById(Long jobId) {
         return jobMapper.selectJobById(jobId);
     }
 
@@ -79,14 +74,12 @@ public class QuartzJobServiceImpl implements IQuartzJobService
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public int pauseJob(QuartzJob job) throws SchedulerException
-    {
+    public int pauseJob(QuartzJob job) throws SchedulerException {
         Long jobId = job.getJobId();
         String jobGroup = job.getJobGroup();
         job.setStatus(ScheduleConstants.Status.PAUSE.getValue());
         int rows = jobMapper.updateJob(job);
-        if (rows > 0)
-        {
+        if (rows > 0) {
             scheduler.pauseJob(ScheduleUtils.getJobKey(jobId, jobGroup));
         }
         return rows;
@@ -99,14 +92,12 @@ public class QuartzJobServiceImpl implements IQuartzJobService
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public int resumeJob(QuartzJob job) throws SchedulerException
-    {
+    public int resumeJob(QuartzJob job) throws SchedulerException {
         Long jobId = job.getJobId();
         String jobGroup = job.getJobGroup();
         job.setStatus(ScheduleConstants.Status.NORMAL.getValue());
         int rows = jobMapper.updateJob(job);
-        if (rows > 0)
-        {
+        if (rows > 0) {
             scheduler.resumeJob(ScheduleUtils.getJobKey(jobId, jobGroup));
         }
         return rows;
@@ -119,13 +110,11 @@ public class QuartzJobServiceImpl implements IQuartzJobService
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public int deleteJob(QuartzJob job) throws SchedulerException
-    {
+    public int deleteJob(QuartzJob job) throws SchedulerException {
         Long jobId = job.getJobId();
         String jobGroup = job.getJobGroup();
         int rows = jobMapper.deleteJobById(jobId);
-        if (rows > 0)
-        {
+        if (rows > 0) {
             scheduler.deleteJob(ScheduleUtils.getJobKey(jobId, jobGroup));
         }
         return rows;
@@ -138,10 +127,8 @@ public class QuartzJobServiceImpl implements IQuartzJobService
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void deleteJobByIds(Long[] jobIds) throws SchedulerException
-    {
-        for (Long jobId : jobIds)
-        {
+    public void deleteJobByIds(Long[] jobIds) throws SchedulerException {
+        for (Long jobId : jobIds) {
             QuartzJob job = jobMapper.selectJobById(jobId);
             deleteJob(job);
         }
@@ -154,16 +141,12 @@ public class QuartzJobServiceImpl implements IQuartzJobService
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public int changeStatus(QuartzJob job) throws SchedulerException
-    {
+    public int changeStatus(QuartzJob job) throws SchedulerException {
         int rows = 0;
         String status = job.getStatus();
-        if (ScheduleConstants.Status.NORMAL.getValue().equals(status))
-        {
+        if (ScheduleConstants.Status.NORMAL.getValue().equals(status)) {
             rows = resumeJob(job);
-        }
-        else if (ScheduleConstants.Status.PAUSE.getValue().equals(status))
-        {
+        } else if (ScheduleConstants.Status.PAUSE.getValue().equals(status)) {
             rows = pauseJob(job);
         }
         return rows;
@@ -176,8 +159,7 @@ public class QuartzJobServiceImpl implements IQuartzJobService
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void run(QuartzJob job) throws SchedulerException
-    {
+    public void run(QuartzJob job) throws SchedulerException {
         Long jobId = job.getJobId();
         String jobGroup = job.getJobGroup();
         QuartzJob properties = selectJobById(job.getJobId());
@@ -194,12 +176,10 @@ public class QuartzJobServiceImpl implements IQuartzJobService
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public int insertJob(QuartzJob job) throws SchedulerException, TaskException
-    {
+    public int insertJob(QuartzJob job) throws SchedulerException, TaskException {
         job.setStatus(ScheduleConstants.Status.PAUSE.getValue());
         int rows = jobMapper.insertJob(job);
-        if (rows > 0)
-        {
+        if (rows > 0) {
             ScheduleUtils.createScheduleJob(scheduler, job);
         }
         return rows;
@@ -212,12 +192,10 @@ public class QuartzJobServiceImpl implements IQuartzJobService
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public int updateJob(QuartzJob job) throws SchedulerException, TaskException
-    {
+    public int updateJob(QuartzJob job) throws SchedulerException, TaskException {
         QuartzJob properties = selectJobById(job.getJobId());
         int rows = jobMapper.updateJob(job);
-        if (rows > 0)
-        {
+        if (rows > 0) {
             updateSchedulerJob(job, properties.getJobGroup());
         }
         return rows;
@@ -226,16 +204,14 @@ public class QuartzJobServiceImpl implements IQuartzJobService
     /**
      * 更新任务
      *
-     * @param job 任务对象
+     * @param job      任务对象
      * @param jobGroup 任务组名
      */
-    public void updateSchedulerJob(QuartzJob job, String jobGroup) throws SchedulerException, TaskException
-    {
+    public void updateSchedulerJob(QuartzJob job, String jobGroup) throws SchedulerException, TaskException {
         Long jobId = job.getJobId();
         // 判断是否存在
         JobKey jobKey = ScheduleUtils.getJobKey(jobId, jobGroup);
-        if (scheduler.checkExists(jobKey))
-        {
+        if (scheduler.checkExists(jobKey)) {
             // 防止创建时存在数据问题 先移除，然后在执行创建操作
             scheduler.deleteJob(jobKey);
         }
@@ -249,8 +225,7 @@ public class QuartzJobServiceImpl implements IQuartzJobService
      * @return 结果
      */
     @Override
-    public boolean checkCronExpressionIsValid(String cronExpression)
-    {
+    public boolean checkCronExpressionIsValid(String cronExpression) {
         return CronUtils.isValid(cronExpression);
     }
 }

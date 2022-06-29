@@ -1,6 +1,5 @@
 package com.example.springbootquartz.domain;
 
-
 import java.io.Serializable;
 import java.util.List;
 
@@ -27,12 +26,13 @@ public class TableDataInfo implements Serializable {
     /**
      * 表格数据对象
      */
-    public TableDataInfo() {}
+    public TableDataInfo() {
+    }
 
     /**
      * 分页
      *
-     * @param list 列表数据
+     * @param list  列表数据
      * @param total 总记录数
      */
     public TableDataInfo(List<?> list, int total) {

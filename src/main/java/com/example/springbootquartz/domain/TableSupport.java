@@ -1,6 +1,5 @@
 package com.example.springbootquartz.domain;
 
-
 import com.example.springbootquartz.util.ServletUtils;
 
 /**

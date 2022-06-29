@@ -1,6 +1,5 @@
 package com.example.springbootquartz.domain;
 
-
 import org.springframework.http.HttpStatus;
 
 import java.io.Serializable;

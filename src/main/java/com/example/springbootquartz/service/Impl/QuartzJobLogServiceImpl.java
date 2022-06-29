@@ -14,8 +14,7 @@ import java.util.List;
  * @author dmp
  */
 @Service
-public class QuartzJobLogServiceImpl implements IQuartzJobLogService
-{
+public class QuartzJobLogServiceImpl implements IQuartzJobLogService {
     @Autowired
     private QuartzJobLogMapper jobLogMapper;
 
@@ -26,8 +25,7 @@ public class QuartzJobLogServiceImpl implements IQuartzJobLogService
      * @return 调度任务日志集合
      */
     @Override
-    public List<QuartzJobLog> selectJobLogList(QuartzJobLog jobLog)
-    {
+    public List<QuartzJobLog> selectJobLogList(QuartzJobLog jobLog) {
         return jobLogMapper.selectJobLogList(jobLog);
     }
 
@@ -38,8 +36,7 @@ public class QuartzJobLogServiceImpl implements IQuartzJobLogService
      * @return 调度任务日志对象信息
      */
     @Override
-    public QuartzJobLog selectJobLogById(Long jobLogId)
-    {
+    public QuartzJobLog selectJobLogById(Long jobLogId) {
         return jobLogMapper.selectJobLogById(jobLogId);
     }
 
@@ -49,8 +46,7 @@ public class QuartzJobLogServiceImpl implements IQuartzJobLogService
      * @param jobLog 调度日志信息
      */
     @Override
-    public void addJobLog(QuartzJobLog jobLog)
-    {
+    public void addJobLog(QuartzJobLog jobLog) {
         jobLogMapper.insertJobLog(jobLog);
     }
 
@@ -61,8 +57,7 @@ public class QuartzJobLogServiceImpl implements IQuartzJobLogService
      * @return 结果
      */
     @Override
-    public int deleteJobLogByIds(Long[] logIds)
-    {
+    public int deleteJobLogByIds(Long[] logIds) {
         return jobLogMapper.deleteJobLogByIds(logIds);
     }
 
@@ -72,8 +67,7 @@ public class QuartzJobLogServiceImpl implements IQuartzJobLogService
      * @param jobId 调度日志ID
      */
     @Override
-    public int deleteJobLogById(Long jobId)
-    {
+    public int deleteJobLogById(Long jobId) {
         return jobLogMapper.deleteJobLogById(jobId);
     }
 
@@ -81,8 +75,7 @@ public class QuartzJobLogServiceImpl implements IQuartzJobLogService
      * 清空任务日志
      */
     @Override
-    public void cleanJobLog()
-    {
+    public void cleanJobLog() {
         jobLogMapper.cleanJobLog();
     }
 }
