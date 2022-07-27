@@ -7,9 +7,6 @@
 <script>
 export default {
   name: 'App',
-  created() {
-    this.$store.dispatch('GenerateRoutes')
-  },
   metaInfo() {
     return {
       title: this.$store.state.settings.dynamicTitle && this.$store.state.settings.title,
